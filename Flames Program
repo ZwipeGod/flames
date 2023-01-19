@@ -1,12 +1,9 @@
-def Flames(name1, name2):
-    namestr = name1 + name2
-    for c in namestr:
-        if namestr.count(c) != 1:
-            namestr = namestr.replace(c, "")
-    print("FLAMES....")
-    print("F = Friend \nL = Love \nA = Affection \nM = Marriage \nE = Enemy \nS = Siblings \n\n")
-
-    number = len(namestr) % 6
+def flames(name1, name2):
+    name = name1 + name2
+    for c in name:
+        if name.count(c) != 1:
+            name = name.replace(c, "")
+    number = len(name) % 6
     rel = ""
     if number == 1:
         rel += "Friends"
@@ -24,7 +21,6 @@ def Flames(name1, name2):
         pass
     return rel
 
-
-n1 = input("Enter the Boy's Name : ").upper()
-n2 = input("Enter the Girl's Name : ").upper()
-print(f"Your Relationship is : ",Flames(n1, n2))
+n1 = input("Enter the Boy's Name : ").lower()
+n2 = input("Enter the Girl's Name : ").lower()
+print(f"Your Relationship is : ", flames(n1, n2))
