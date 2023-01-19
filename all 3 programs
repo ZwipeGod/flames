@@ -1,0 +1,148 @@
+def flames(name1, name2):
+    name = name1 + name2
+    for c in name:
+        if name.count(c) != 1:
+            name = name.replace(c, "")
+    number = len(name) % 6
+    rel = ""
+    if number == 1:
+        rel += "Friends"
+    elif number == 2:
+        rel += "Love"
+    elif number == 3:
+        rel += "Affection"
+    elif number == 4:
+        rel += "Marriage"
+    elif number == 5:
+        rel += "Enemy"
+    elif number == 0:
+        rel += "Siblings"
+    else:
+        pass
+    return rel
+
+n1 = input("Enter the Boy's Name : ").lower()
+n2 = input("Enter the Girl's Name : ").lower()
+print(f"Your Relationship is : ", flames(n1, n2))
+
+
+-------------------------------------------------------------
+
+
+def generateSquare(n):
+
+    magicSquare = [[0 for x in range(n)]
+                      for y in range(n)]
+    i = n / 2
+    j = n - 1
+
+    num = 1
+    while num <= (n * n):
+        if i == -1 and j == n:
+            j = n - 2
+            i = 0
+        else:
+            if j == n:
+                j = 0
+            if i < 0:
+                i = n - 1
+        if magicSquare[int(i)][int(j)]:
+            j = j - 2
+            i = i + 1
+            continue
+        else:
+            magicSquare[int(i)][int(j)] = num
+            num = num + 1
+        j = j + 1
+        i = i - 1
+
+    print ("Magic Square for n =", n)
+    print ("Sum of each row or column",n * (n * n + 1) / 2, "\n")
+    for i in range(0, n):
+        for j in range(0, n):
+            print('%2d ' % (magicSquare[i][j]),end = '')
+
+            if j == n - 1:
+                print()
+
+n=int(input("Number of rows of the Magic Square:"))
+generateSquare(n)
+
+
+-------------------------------------------------------------------------------------------------
+
+
+
+import random
+
+snake_position = {12: 4,18: 6,22: 11,36: 7,42: 8,53: 31,67: 36,73: 28,80: 41,84: 53,90: 48,94: 65,96: 80,99: 2}
+
+ladders_position = {3: 26,5: 15,13: 44,25: 51,29: 74,36: 57,42: 72,49: 86,57: 76,61: 93,77: 86,81: 98,88: 91}
+
+MAX_VAL = 100
+DICE_FACE = 6
+
+def get_dice_value():
+    dice_value = random.randint(1, DICE_FACE)
+    print("Dice value " + str(dice_value))
+    return dice_value
+
+
+def got_snake_bite(old_value, current_value, player_name):
+    print(player_name + " got a bite from snake. Going down from " + str(old_value) + " to " + str(current_value))
+
+
+def got_ladder_jump(old_value, current_value, player_name):
+    print(player_name + " is clibing the ladder from " + str(old_value) + " to " + str(current_value))
+
+
+def snake_ladder(player_name, current_value, dice_value):
+    old_value = current_value
+    current_value = current_value + dice_value
+
+    if current_value > MAX_VAL:
+        print("You need " + str(MAX_VAL - old_value) + " to win this game. Keep trying.")
+        return old_value
+
+    print(player_name + " moved from " + str(old_value) + " to " + str(current_value))
+    if current_value in snake_position:
+        final_value = snake_position.get(current_value)
+        got_snake_bite(current_value, final_value, player_name)
+
+    elif current_value in ladders_position:
+        final_value = ladders_position.get(current_value)
+        got_ladder_jump(current_value, final_value, player_name)
+
+    else:
+        final_value = current_value
+
+    return final_value
+
+
+def check_win(player_name, position):
+    if MAX_VAL == position:
+        print("\n" + player_name + " has  won the game.")
+        print("Congratulations " + player_name +" You are the winner")
+        exit()
+
+p1_name = input("Name of first player: ").strip()
+p2_name = input("Name of second player: ").strip()
+p1_current_position = 0
+p2_current_position = 0
+
+while True:
+    input_1 = input(p1_name + ": " + " Press enter for rolling the dice: ")
+    print("\nDice is being rolled...")
+    dice_value = get_dice_value()
+    print(p1_name + " moving....")
+    p1_current_position = snake_ladder(p1_name, p1_current_position, dice_value)
+
+    check_win(p1_name, p1_current_position)
+
+    input_2 = input(p2_name + ": " + " Press enter for rolling the dice: ")
+    print("\n Dice is being rolled...")
+    dice_value = get_dice_value()
+    print(p2_name + " moving....")
+    p2_current_position = snake_ladder(p2_name, p2_current_position, dice_value)
+
+    check_win(p2_name, p2_current_position)
