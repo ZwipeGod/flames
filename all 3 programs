@@ -1,3 +1,6 @@
+
+#flames
+
 def flames(name1, name2):
     name = name1 + name2
     for c in name:
@@ -28,6 +31,7 @@ print(f"Your Relationship is : ", flames(n1, n2))
 
 -------------------------------------------------------------
 
+#magic square
 
 def generateSquare(n):
 
@@ -71,7 +75,7 @@ generateSquare(n)
 
 -------------------------------------------------------------------------------------------------
 
-
+#snake and ladder
 
 import random
 
@@ -146,3 +150,42 @@ while True:
     p2_current_position = snake_ladder(p2_name, p2_current_position, dice_value)
 
     check_win(p2_name, p2_current_position)
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+#hangman
+
+import random
+
+name = input("What is your name? ")
+print("Good Luck ! ", name)
+words = ['varisu', 'thunivu', 'mangatha','python', 'maths', 'football','vishvaa']
+word = random.choice(words)
+print("Guess the characters")
+guesses = ''
+turns = 8
+while turns > 0:
+	failed = 0
+	for char in word:
+		if char in guesses:
+			print(char, end=" ")
+		else:
+			print("_")
+			failed += 1
+	if failed == 0:
+		print("You Win")
+		print("The word is: ", word)
+		break
+	print()
+	guess = input("guess a character:")
+	guesses += guess
+	if guess not in word:
+		turns -= 1
+		print("Wrong")
+		print("You have", + turns, 'more guesses')
+		if turns == 0:
+			print("You Loose")
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
