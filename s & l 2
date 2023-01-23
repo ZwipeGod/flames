@@ -1,0 +1,46 @@
+import random
+player1=input('Player 1 Your Name ? ')
+player2=input('Player 2 Your Name ? ')
+player1_pos=0
+player2_pos=0
+while True:
+    add1=random.randint(1,12)
+    c=input(player1+' ROLL')
+    print(player1+"'s roll was:",add1)
+    player1_pos+=add1
+    lst1=[4,9,20,28,36,42,51,62,71]
+    lst2=[14,30,38,84,44,63,67,81,90]
+    for i in range(len(lst1)):
+        if player1_pos==lst1[i]:
+            player1_pos=lst2[i]
+            print("player went up the ladder")
+    lst3=[25,59,56,69,83,91,94,99]
+    lst4=[3,1,48,32,57,73,26,80]
+    for i in range(len(lst3)):
+        if player1_pos==lst3[i]:
+            player1_pos=lst4[i]
+            print("player went down coz of snake")
+    if player1_pos>100:
+        player1_pos-=add1
+    print(player1 +" current position:",player1_pos)
+    if player1_pos==100:
+        print("game over player1 has won",)
+        break
+    add2=random.randint(1,12)
+    z=input(player2+' ROLL')
+    print(player2+"'s roll was:",add2)
+    player2_pos+=add2
+    for i in range(len(lst1)):
+        if player2_pos==lst1[i]:
+            player2_pos=lst2[i]
+            print("player went up the ladder")
+    for i in range(len(lst3)):
+        if player2_pos==lst3[i]:
+            player2_pos=lst4[i]
+            print("player went down coz of snake")
+    if player2_pos>100:
+        player2_pos-=add1
+    print(player2 +" current position:",player2_pos)
+    if player2_pos==100:
+        print("game over player two has won")
+        break
